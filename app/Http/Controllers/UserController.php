@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class UserController extends Controller
 {
     public function updateProfile(Request $request)
@@ -12,11 +13,8 @@ class UserController extends Controller
         // Check if the user is authenticated
         if (!Auth::check()) {
             return response()->json(['error' => 'Unauthorized'], 401);
-        }
-        else
-        {
+        } else {
             return response()->json(['error' => '6666'], 401);
-
         }
         $user = Auth::user();
 
@@ -35,5 +33,16 @@ class UserController extends Controller
         ]);
 
         return response()->json(['message' => 'Profile updated successfully']);
+    }
+
+
+    public function deleteAccount(Request $request)
+    {
+        $user = Auth::user();
+
+        // Delete the user's account
+        $user->delete();
+
+        return response()->json(['message' => 'Account deleted successfully']);
     }
 }
