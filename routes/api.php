@@ -14,9 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware(['auth:sanctum'])->group(function () {
+    // Your authenticated routes go here
+    Route::put('/profile', [App\Http\Controllers\UserController::class, 'updateProfile'])->name('profile');
+});
+
 
 Route::get('hi',  function (Request $request) {
     return "Hiee";
@@ -24,7 +26,6 @@ Route::get('hi',  function (Request $request) {
 
 Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::post('/register', [App\Http\Controllers\AuthController::class, 'register'])->name('register');
-
 Route::post('/reset', [App\Http\Controllers\AuthController::class, 'reset'])->name('reset');
 
 

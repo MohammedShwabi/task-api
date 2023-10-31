@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
+
 class AuthController extends Controller
 {
     // Register a new user
@@ -24,17 +26,21 @@ class AuthController extends Controller
         return response()->json(['message' => 'User registered successfully'], 201);
     }
 
-    // Login user and issue a token
+
+    
+
     public function login(Request $request)
     {
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
-            // $token = $user->createToken('MyApp')->accessToken;
-            return response()->json(['You are Logged in !!' => $user], 200);
+            $token = $user->createToken('my-token')->plainTextToken;
+    
+            return response()->json(['message' => 'You are logged in!', 'token' => $token], 200);
         } else {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
+
 
     public function reset(Request $request)
     {
