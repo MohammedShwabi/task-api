@@ -13,9 +13,7 @@ class UserController extends Controller
         // Check if the user is authenticated
         if (!Auth::check()) {
             return response()->json(['error' => 'Unauthorized'], 401);
-        } else {
-            return response()->json(['error' => '6666'], 401);
-        }
+        } 
         $user = Auth::user();
 
         // Validate the incoming request data
